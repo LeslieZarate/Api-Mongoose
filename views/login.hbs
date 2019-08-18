@@ -1,0 +1,29 @@
+ <form method="POST" id="form">
+    <input type="text" name="email" placeholder="email" id="email">
+    <br>
+    <input type="password" name="password" placeholder="password" id="password">
+    <br>
+    <input type="submit" value="Login">
+</form>
+<script type="text/javascript">
+const formLogin = document.querySelector('form');
+const email = document.getElementById('email');
+const password = document.getElementById('password');
+
+formLogin.addEventListener('submit', (e) => {
+	e.preventDefault();
+	const formData = { email:email.value, password:password.value };
+	fetch('/signIn',{
+			method: 'POST',
+			 headers: { 'Content-Type': 'application/json' },
+			body: JSON.stringify(formData),			
+    })
+		.then((res) => res.json())
+		.then((data) =>{
+			localStorage.setItem('token',data.token);
+		})
+
+});
+
+
+</script>
